@@ -95,20 +95,49 @@ namespace Dz1_1
             if (x == 1 || x == 0) return 1;
             else return x * Factorial(x - 1);
         }
+        public static bool HasNextSochetRepeat(List<int> soch)
+        {
 
+            for (int i = soch.Count - 1; i >= 0; i--)
+                if (soch[i] != alfSize - 1) return true;
+            return false;
+
+        }
+
+        public static void NextSochetRepeat(List<int> sochet)
+        {
+            if (sochet[^1] == alfSize - 1)
+            {
+                int index = sochet.Count - 1;
+                while (sochet[index] == alfSize - 1 && index > 0)
+                    index--;
+                if (index == 0 || sochet[index - 1] == alfSize - 1)
+                    sochet[index]++;
+                else sochet[index - 1]++;
+                for (int i = index; i < sochet.Count; i++)
+                    sochet[i] = sochet[index];
+            }
+            else sochet[sochet.Count - 1]++;
+        }
+        public static bool HasNextSubset(List<int> sub)
+        {
+            if (hasNextComObj(sub)) return true;
+            return false;
+        }
+        public static void NextSubset(List<int> sub)
+        {
+            NextComObj(sub);
+        }
         public static void Print(List<string> slovo, StreamWriter file)
         {
             string s = "";
             for (int i = 0; i < slovo.Count; i++)
                 s += slovo[i];
             file.WriteLine(s);
-            // Console.WriteLine(s);
-
+           
         }
 
-
-
-        static List<string> alf = new List<string>();
+        static List<string> alf = new();
         static int alfSize;
 
         static void Main(string[] args)
@@ -125,6 +154,9 @@ namespace Dz1_1
             StreamWriter filePermutation = new StreamWriter(@"Permutation.txt");//для перестановок
             StreamWriter filePlacements = new StreamWriter(@"Placements.txt");//для размещений по к элементов
             StreamWriter fileSubset = new StreamWriter(@"Subset.txt");//для подмножеств
+            StreamWriter fileSochet = new StreamWriter(@"Sochet.txt");//для сочетаний по к элементов
+            StreamWriter fileSochetRep = new StreamWriter(@"SochetRepeat.txt");//для сочетаний с повторениями
+
             //построение всех размещений с повторениями по к элементов
             List<string> arrange = new List<string>();
             for (int i = 0; i < alfSize; i++)
@@ -143,7 +175,7 @@ namespace Dz1_1
             filePlacementsRepetitions.Close();
 
             //построение всех перестановок
-            List<string> perest = new List<string>();
+            List<string> perest = new();
             for (int i = 0; i < alfSize; i++)
                 perest.Add(alf[i]);
             Print(perest, filePermutation);
@@ -172,6 +204,71 @@ namespace Dz1_1
 
             }
             filePlacements.Close();
+
+ 
+            //Построение всех сочетаний по к элеметов и построение всех подмножеств
+            List<int> sochet = new();
+            sochet = new List<int>();
+            List<string> sochWord = new List<string>();
+            for (int i = 0; i < alfSize; i++)
+            {
+                sochet.Add(0);
+                sochWord.Add("");
+                for (int j = 0; j < sochet.Count; j++)
+                {
+                    sochet[j] = j;
+                    sochWord[j] = alf[j];
+                }
+                Print(sochWord, fileSochet);
+                Print(sochWord, fileSubset);
+                while (hasNextComObj(sochet))
+                {
+                    NextComObj(sochet);
+                    for (int j = 0; j < sochet.Count; j++)
+                        sochWord[j] = alf[sochet[j]];
+                    Print(sochWord, fileSochet);
+                    Print(sochWord, fileSubset);
+                }
+            }
+
+            fileSochet.Close();
+            fileSubset.Close();
+
+            //Сочетания с повторениями
+            sochet = new List<int>();
+            sochWord = new List<string>();
+
+            for (int j = 0; j < alfSize; j++)
+            {
+                sochet.Add(0);
+                sochWord.Add("");
+
+                for (int i = 0; i < sochet.Count; i++)
+                {
+                    sochet[i] = 0;
+                    sochWord[i] = "";
+                }
+                for (int i = 0; i < sochWord.Count; i++)
+                    sochWord[i] = alf[sochet[i]];
+
+                Print(sochWord, fileSochetRep);
+                while (HasNextSochetRepeat(sochet))
+                {
+                    NextSochetRepeat(sochet);
+                    for (int i = 0; i < sochWord.Count; i++)
+                    {
+
+                        sochWord[i] = alf[sochet[i]];
+                        //Console.Write(sochWord[i]);
+                    }
+                    //Console.WriteLine();
+                    Print(sochWord, fileSochetRep);
+                }
+
+            }
+
+            fileSochetRep.Close();
+            Console.ReadKey();
         }
     }
 }
