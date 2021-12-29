@@ -9,7 +9,7 @@ namespace Dz1_1
 {
     class Program
     {
-        static bool hasNextComObj(List<int> s)
+        static bool hasNextComObj(List<int> s)// сочетния
         {
             for (int i = s.Count - 1; i > 0; i--)
                 if (s[i] != s[i - 1] + 1) return true;
@@ -39,7 +39,7 @@ namespace Dz1_1
                 if (s[i] != alf[^1]) return true;
             return false;
         }
-        static void NextPlacementsRepetitions(List<string> s)
+        static void NextPlacementsRepetitions(List<string> s)//размещения с повторениями
         {
             int index = s.Count - 1;
             while (s[index] == alf[^1] && index > 0)
@@ -55,12 +55,14 @@ namespace Dz1_1
 
         public static bool hasNextPermutation(List<string> ReArr)
         {
+            //индекс первого вхождения указанного символа 
             int index = ReArr.Count - 1;
             while (index > 0 && (alf.IndexOf(ReArr[index]) < alf.IndexOf(ReArr[index - 1])))
                 index--;
             if (index == 0) return false;
             else return true;
         }
+
         public static void NextPermutation(List<string> ReArr) //перестановки
         {
             int index = ReArr.Count - 2;

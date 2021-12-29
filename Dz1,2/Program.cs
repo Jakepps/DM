@@ -39,7 +39,7 @@ namespace Dz1_2
                 if (s[i] != alf[alf.Count - 1]) return true;
             return false;
         }
-        static void NexthPlacementsRepet(List<string> s)
+        static void NextPlacementsRepet(List<string> s)
         {
             int index = m - k - 1;
             while (s[index] == alf[alf.Count - 1] && index > 0)
@@ -89,7 +89,7 @@ namespace Dz1_2
                 NextPermutation(ReArr);
         }
 
-        public static void Connect(List<int> sochet, List<string> arrange, List<string> word)
+        public static void Connect(List<int> sochet, List<string> arrange, List<string> word)//объединение слов
         {
             int indexAr = 0;
             for (int i = 0; i < m; i++)
@@ -111,8 +111,7 @@ namespace Dz1_2
             for (int i = 0; i < m; i++)
                 s += slovo[i];
             file.WriteLine(s);
-            //Console.WriteLine(s);
-
+         
         }
         public static List<string> alf = new List<string>();
         public static List<string> word1 = new List<string>();
@@ -122,7 +121,69 @@ namespace Dz1_2
 
         static void Main(string[] args)
         {
-            
+            alf.Add("a");
+            alf.Add("b");
+            alf.Add("c");
+            alf.Add("d");
+            alf.Add("e");
+            alf.Add("f");
+
+            List<string> arrange1 = new List<string>();
+            List<string> arrange2 = new List<string>();
+            List<string> perest = new List<string>();
+            for (int i = 0; i < m - k; i++)
+            {
+                arrange1.Add("");
+                arrange2.Add("");
+            }
+
+            List<int> sochet = new List<int>();
+            for (int i = 0; i < k; i++)
+                sochet.Add(i);
+            sochet[k - 1] = k - 2;
+            for (int i = 0; i < m; i++)
+            {
+                word1.Add("");
+                word2.Add("");
+                perest.Add(alf[i + 1]);
+            }
+            file1.WriteLine("Все слова длины 5, в которых две буквы а:");
+            file2.WriteLine("Все слова длины 5, в которых две буквы а, остальные буквы не повторяются:");
+
+            while (hasNextComObj(sochet))
+            {
+                NextComObj(sochet);
+                for (int i = 0; i < m - k; i++)
+                    arrange1[i] = "b";
+
+                Connect(sochet, arrange1, word1);
+                Print(word1, file1);
+                while (hasNextPlacementsRepet(arrange1))
+                {
+                    NextPlacementsRepet(arrange1);
+                    Connect(sochet, arrange1, word1);
+                    Print(word1, file1);
+                }
+
+                for (int i = 0; i < m; i++)
+                    perest[i] = alf[i + 1];
+                NextPlacements(arrange2, perest);
+                Connect(sochet, arrange2, word2);
+                Print(word2, file2);
+                while (hasNextPermutation(perest))
+                {
+                    NextPlacements(arrange2, perest);
+                    Connect(sochet, arrange2, word2);
+                    Print(word2, file2);
+                }
+            }
+
+            file1.Close();
+            file2.Close();
+            Console.ReadKey();
         }
+
+
     }
 }
+
