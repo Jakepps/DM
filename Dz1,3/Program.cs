@@ -18,7 +18,7 @@ namespace Dz1_3
             return true;
         }
 
-        static void NextComObj(List<int> s, int m)
+        static void NextPlacements(List<int> s, int m)
         {
             if (s[k - 1] != (m - 1)) s[k - 1] += 1;
             else
@@ -60,10 +60,171 @@ namespace Dz1_3
             if (index == 0) return false;
             else return true;
         }
+        public static void NextPlacements(List<string> arr, List<string> ReArr, int L)// L - разница между длиной перестановки и длиной и размещения
+        {
+            NextPlacementsRepet(ReArr);
+            for (int i = 0; i < arr.Count; i++)
+                arr[i] = ReArr[i];
+            for (int i = 0; i < L; i++)
+                if (hasNextPlacementsRepet(ReArr))
+                    NextPlacementsRepet(ReArr);
+        }
+        public static void Connect(List<int> sochet, List<string> arrange, List<string> word, int indAlf, int m)
+        {
+            int indexAr = 0;
+            for (int i = 0; i < m; i++)//обновили слово
+                word[i] = "";
+
+            for (int i = 0; i < k; i++)
+                word[sochet[i]] = alf[indAlf];
+            for (int i = 0; i < m; i++)
+                if (word[i] == "")
+                {
+                    word[i] = arrange[indexAr];
+                    indexAr++;
+                }
+        }
+        public static void ConnectForTwo(List<int> MainSochet, List<int> sochet2, List<string> arrange2, List<string> word, int m, int j, int n)
+        {
+            int indexAr = 0;
+            for (int i = 0; i < m; i++)//обновили слово
+                word[i] = "";
+
+            for (int i = 0; i < k; i++)
+                word[MainSochet[i]] = alf[j];
+
+            int indexHelp = 0;//номер пустой позиции в слове
+            for (int i = 0; i < m; i++)
+                if (word[i] == "")
+                {
+                    if (sochet2.IndexOf(indexHelp) != -1)
+                        word[i] = alf[n];
+                    else
+                    {
+                        word[i] = arrange2[indexAr];
+                        indexAr++;
+                    }
+                    indexHelp++;
+                }
+        }
+
+        public static void Print(List<string> slovo, StreamWriter file, int m)
+        {
+            string s = "";
+            for (int i = 0; i < m; i++)
+                s += slovo[i];
+            file.WriteLine(s);
+            //Console.WriteLine(s);
+        }
         public static List<string> alf = new List<string>();
+        public static List<string> IterAlf1 = new List<string>();//для одной буквы повторяющейся
+        public static List<string> IterAlf2 = new List<string>(); // для двух повторящихся букв
+        public static List<string> word1 = new List<string>();
+        public static List<string> word2 = new List<string>();
+        public static StreamWriter file1 = new StreamWriter(@"Ответ1.txt");//для размещений с повторениями
+        public static StreamWriter file2 = new StreamWriter(@"Ответ2.txt");
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            alf.Add("a");
+            alf.Add("b");
+            alf.Add("c");
+            alf.Add("d");
+            alf.Add("e");
+            alf.Add("f");
+
+            List<string> arrange1 = new List<string>();
+            List<string> arrange2 = new List<string>();
+            List<string> perest = new List<string>();
+            List<string> perest2 = new List<string>();
+            List<int> sochet = new List<int>();
+            List<int> sochet2 = new List<int>();
+
+            for (int i = 0; i < m1 - k; i++)
+            {
+                if (i < k)
+                {
+                    sochet.Add(0);
+                    sochet2.Add(0);
+                    arrange2.Add("");
+                }
+                arrange1.Add("");
+
+            }
+
+            for (int i = 0; i < m1; i++)
+            {
+                word1.Add("");
+                word2.Add("");
+                perest.Add("");
+            }
+            word2.Add("");//тк длина второго слова = 6
+            for (int i = 0; i < 4; i++)
+                perest2.Add("");
+
+            file1.WriteLine("Все слова длины 5 с повтором одной буквы 2 раза:");
+            file2.WriteLine("Все слова длины 6, в которых 2 буквы повторяются 2 раза, остальные буквы не повторяются:");
+            for (int j = 0; j < 6; j++)
+            {
+                for (int i = 0; i < k; i++)//обновили сочетания для новой буквы
+                    sochet[i] = 0;
+                IterAlf1 = new List<string>();
+                for (int i = 0; i < 6; i++)
+                    if (i != j)
+                        IterAlf1.Add(alf[i]);//убрали букву из алфавита
+
+                while (hasNextComObj(sochet, m1))
+                {
+                    NextPlacements(sochet, m1);
+
+                    for (int i = 0; i < m1; i++)
+                        perest[i] = IterAlf1[i];
+                    NextPlacements(arrange1, perest, 1);
+                    Connect(sochet, arrange1, word1, j, m1);
+                    Print(word1, file1, m1);
+                    while (hasNextPlacementsRepet(perest))
+                    {
+                        NextPlacements(arrange1, perest, 1);
+                        Connect(sochet, arrange1, word1, j, m1);
+                        Print(word1, file1, m1);
+                    }
+
+                    //начало второго пункта
+
+                    for (int n = j + 1; n < 6; n++)
+                    {
+                        for (int i = 0; i < k; i++)//обновили сочетания для новой буквы
+                            sochet2[i] = 0;
+                        IterAlf2 = new List<string>();
+                        for (int i = 0; i < 6; i++)
+                            if (i != j && i != n)
+                                IterAlf2.Add(alf[i]);//убрали букву из алфавита 2
+
+                        while (hasNextComObj(sochet2, 4))
+                        {
+                            NextPlacements(sochet2, 4);
+
+                            for (int i = 0; i < 4; i++)
+                                perest2[i] = IterAlf2[i];
+
+                            NextPlacements(arrange2, perest2, 1);
+
+                            ConnectForTwo(sochet, sochet2, arrange2, word2, m2, j, n);
+                            Print(word2, file2, m2);
+                            while (hasNextPlacementsRepet(perest2))
+                            {
+                                NextPlacements(arrange2, perest2, 1);
+                                ConnectForTwo(sochet, sochet2, arrange2, word2, m2, j, n);
+                                Print(word2, file2, m2);
+                            }
+                        }
+                    }
+                }
+            }
+            file1.Close();
+            file2.Close();
+            Console.ReadKey();
+
         }
     }
 }

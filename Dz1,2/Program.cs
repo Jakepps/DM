@@ -36,13 +36,13 @@ namespace Dz1_2
         static bool hasNextPlacementsRepet(List<string> s)
         {
             for (int i = m - k - 1; i >= 0; i--)
-                if (s[i] != alf[alf.Count - 1]) return true;
+                if (s[i] != alf[^1]) return true;
             return false;
         }
         static void NextPlacementsRepet(List<string> s)
         {
             int index = m - k - 1;
-            while (s[index] == alf[alf.Count - 1] && index > 0)
+            while (s[index] == alf[^1] && index > 0)
             {
                 s[index] = alf[1];
                 index--;
@@ -182,7 +182,6 @@ namespace Dz1_2
             file2.Close();
             Console.ReadKey();
         }
-
 
     }
 }
