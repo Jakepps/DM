@@ -36,13 +36,13 @@ namespace Dz1_1
         static bool hasPlacementsRepetitions(List<string> s)
         {
             for (int i = s.Count - 1; i >= 0; i--)
-                if (s[i] != alf[alf.Count - 1]) return true;
+                if (s[i] != alf[^1]) return true;
             return false;
         }
         static void NextPlacementsRepetitions(List<string> s)
         {
             int index = s.Count - 1;
-            while (s[index] == alf[alf.Count - 1] && index > 0)
+            while (s[index] == alf[^1] && index > 0)
             {
                 s[index] = alf[1];
                 index--;
@@ -51,6 +51,49 @@ namespace Dz1_1
             s[index] = alf[ind_in_alf + 1];
 
 
+        }
+
+        public static bool hasNextPermutation(List<string> ReArr)
+        {
+            int index = ReArr.Count - 1;
+            while (index > 0 && (alf.IndexOf(ReArr[index]) < alf.IndexOf(ReArr[index - 1])))
+                index--;
+            if (index == 0) return false;
+            else return true;
+        }
+        public static void NextPermutation(List<string> ReArr) //перестановки
+        {
+            int index = ReArr.Count - 2;
+            while (alf.IndexOf(ReArr[index]) > alf.IndexOf(ReArr[index + 1]))
+                index--;
+            int s = index + 1;
+            while (s < ReArr.Count - 1 && (alf.IndexOf(ReArr[s + 1]) > alf.IndexOf(ReArr[index])))
+                s++;
+            string t = ReArr[index];//поменяли местами полученный и наименьший справа
+            ReArr[index] = ReArr[s];
+            ReArr[s] = t;
+
+            for (int i = 0; i < (ReArr.Count - index - 1) / 2; i++)
+            {
+                t = ReArr[ReArr.Count - 1 - i];
+                ReArr[ReArr.Count - 1 - i] = ReArr[index + i + 1];
+                ReArr[index + i + 1] = t;
+            }
+
+        }
+
+        public static void NextPlacements(List<string> arr, List<string> ReArr, int L)
+        {
+            for (int i = 0; i < arr.Count; i++)
+                arr[i] = ReArr[i];
+            for (int i = 0; i < L; i++)
+                if (hasNextPermutation(ReArr))
+                    NextPermutation(ReArr);
+        }
+        public static int Factorial(int x)
+        {
+            if (x == 1 || x == 0) return 1;
+            else return x * Factorial(x - 1);
         }
 
         public static void Print(List<string> slovo, StreamWriter file)
@@ -78,7 +121,10 @@ namespace Dz1_1
             alf.Add("f");
             alf.Add("g");
             alfSize = alf.Count;
-            StreamWriter fileArrangeRepeat = new StreamWriter(@"PlacementsRepetitions .txt");//для размещений с повторениями по к элементов
+            StreamWriter filePlacementsRepetitions = new StreamWriter(@"PlacementsRepetitions .txt");//для размещений с повторениями по к элементов
+            StreamWriter filePermutation = new StreamWriter(@"Permutation.txt");//для перестановок
+            StreamWriter filePlacements = new StreamWriter(@"Placements.txt");//для размещений по к элементов
+            StreamWriter fileSubset = new StreamWriter(@"Subset.txt");//для подмножеств
             //построение всех размещений с повторениями по к элементов
             List<string> arrange = new List<string>();
             for (int i = 0; i < alfSize; i++)
@@ -86,16 +132,46 @@ namespace Dz1_1
                 arrange.Add("");
                 for (int j = 0; j < arrange.Count; j++)
                     arrange[j] = alf[0];
-                Print(arrange, fileArrangeRepeat);
+                Print(arrange, filePlacementsRepetitions);
                 while (hasPlacementsRepetitions(arrange))
                 {
                     NextPlacementsRepetitions(arrange);
-                    Print(arrange, fileArrangeRepeat);
+                    Print(arrange, filePlacementsRepetitions);
                 }
 
             }
-            fileArrangeRepeat.Close();
+            filePlacementsRepetitions.Close();
 
+            //построение всех перестановок
+            List<string> perest = new List<string>();
+            for (int i = 0; i < alfSize; i++)
+                perest.Add(alf[i]);
+            Print(perest, filePermutation);
+            while (hasNextPermutation(perest))
+            {
+                NextPermutation(perest);
+                Print(perest, filePermutation);
+            }
+            filePermutation.Close();
+
+            //построение всех размещений по к элементов
+            arrange = new List<string>();
+            for (int j = 0; j < alfSize; j++)
+            {
+                arrange.Add("");
+                perest = new List<string>();
+                for (int i = 0; i < alfSize; i++)
+                    perest.Add(alf[i]);
+                NextPlacements(arrange, perest, Factorial(alfSize - arrange.Count));
+                Print(arrange, filePlacements);
+                while (hasNextPermutation(perest))
+                {
+                    NextPlacements(arrange, perest, Factorial(alfSize - arrange.Count));
+                    Print(arrange, filePlacements);
+                }
+
+            }
+            filePlacements.Close();
         }
     }
 }
