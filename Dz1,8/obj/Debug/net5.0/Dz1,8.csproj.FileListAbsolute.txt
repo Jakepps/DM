@@ -1,0 +1,16 @@
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\bin\Debug\net5.0\Dz1,8.exe
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\bin\Debug\net5.0\Dz1,8.deps.json
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\bin\Debug\net5.0\Dz1,8.runtimeconfig.json
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\bin\Debug\net5.0\Dz1,8.runtimeconfig.dev.json
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\bin\Debug\net5.0\Dz1,8.dll
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\bin\Debug\net5.0\ref\Dz1,8.dll
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\bin\Debug\net5.0\Dz1,8.pdb
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\obj\Debug\net5.0\Dz1,8.csproj.AssemblyReference.cache
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\obj\Debug\net5.0\Dz1,8.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\obj\Debug\net5.0\Dz1,8.AssemblyInfoInputs.cache
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\obj\Debug\net5.0\Dz1,8.AssemblyInfo.cs
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\obj\Debug\net5.0\Dz1,8.csproj.CoreCompileInputs.cache
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\obj\Debug\net5.0\Dz1,8.dll
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\obj\Debug\net5.0\ref\Dz1,8.dll
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\obj\Debug\net5.0\Dz1,8.pdb
+C:\Users\artem\source\repos\Dm\DM\Dz1,8\obj\Debug\net5.0\Dz1,8.genruntimeconfig.cache
