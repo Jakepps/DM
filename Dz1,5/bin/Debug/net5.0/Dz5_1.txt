@@ -1,0 +1,22 @@
+Все слова длины 4, в которых больше 2-x букв а:
+aaab
+aaac
+aaad
+aaae
+aaaf
+aaba
+aaca
+aada
+aaea
+aafa
+abaa
+acaa
+adaa
+aeaa
+afaa
+baaa
+caaa
+daaa
+eaaa
+faaa
+aaaa

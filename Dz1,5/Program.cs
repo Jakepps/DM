@@ -89,8 +89,107 @@ namespace Dz1_5
         public static StreamWriter file2 = new StreamWriter(@"Dz5_2.txt");
         static void Main(string[] args)
         {
+            alf.Add("a");
+            alf.Add("b");
+            alf.Add("c");
+            alf.Add("d");
+            alf.Add("e");
+            alf.Add("f");
+
+            List<string> placements1 = new List<string>();
+            List<string> placements2 = new List<string>();
+            k1 = 3;
+            for (int i = 0; i < m1 - k1; i++)
+                placements1.Add("");
+            for (int i = 0; i < m2 - k1; i++)
+                placements2.Add("");
 
 
+            List<int> sochet1 = new List<int>();
+            List<int> sochet2 = new List<int>();
+            for (int i = 0; i < k1; i++)
+            {
+                sochet1.Add(i);
+                sochet2.Add(i);
+            }
+            sochet1[k1 - 1] = k1 - 2;
+            sochet2[k1 - 1] = k1 - 2;
+            for (int i = 0; i < m1; i++)
+                word1.Add("");
+            for (int i = 0; i < m2; i++)
+                word2.Add("");
+
+            file1.WriteLine("Все слова длины 4, в которых больше 2-x букв а:");
+            file2.WriteLine("Все слова длины 7, в которых больше 2-x букв а:");
+
+            while (k1 <= 7)
+            {
+                if (k1 <= 4)
+                {
+                    for (int i = 0; i < k1; i++)
+                        sochet1[i] = i;
+                    sochet1[k1 - 1] = k1 - 2;
+                    while (hasNextComObj(sochet1, m1))
+                    {
+                        NextComObj(sochet1, m1, k1);
+                        for (int i = 0; i < placements1.Count; i++)
+                            placements1[i] = "b";
+
+                        for (int i = 0; i < m1; i++)
+                            word1[i] = "";
+                        Connect(sochet1, word1, 0, m1);
+                        if (placements1.Count != 0)
+                            ConnectArr(placements1, word1, m1);
+                        Print(word1, file1, m1);
+                        while (hasNextPlacementsRepet(placements1, m1, k1))
+                        {
+                            NextPlacementsRepet(placements1, m1, k1);
+                            for (int i = 0; i < m1; i++)
+                                word1[i] = "";
+                            Connect(sochet1, word1, 0, m1);
+                            if (placements1.Count != 0)
+                                ConnectArr(placements1, word1, m1);
+                            Print(word1, file1, m1);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < k1; i++)
+                    sochet2[i] = i;
+                sochet2[k1 - 1] = k1 - 2;
+                while (hasNextComObj(sochet2, m2))
+                {
+                    NextComObj(sochet2, m2, k1);
+                    for (int i = 0; i < placements2.Count; i++)
+                        placements2[i] = "b";
+
+                    for (int i = 0; i < m2; i++)
+                        word2[i] = "";
+                    Connect(sochet2, word2, 0, m2);
+                    if (placements2.Count != 0)
+                        ConnectArr(placements2, word2, m2);
+                    Print(word2, file2, m2);
+                    while (hasNextPlacementsRepet(placements2, m2, k1))
+                    {
+                        NextPlacementsRepet(placements2, m2, k1);
+                        for (int i = 0; i < m2; i++)
+                            word2[i] = "";
+                        Connect(sochet2, word2, 0, m2);
+                        if (placements2.Count != 0)
+                            ConnectArr(placements2, word2, m2);
+                        Print(word2, file2, m2);
+                    }
+                }
+                sochet1.Add(0);
+                sochet2.Add(0);
+                if (placements1.Count != 0)
+                    placements1.RemoveAt(placements1.Count - 1);
+                if (placements2.Count != 0)
+                    placements2.RemoveAt(placements2.Count - 1);
+                k1++;
+            }
+            file1.Close();
+            file2.Close();
         }
     }
 }
