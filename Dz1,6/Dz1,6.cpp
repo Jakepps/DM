@@ -6,13 +6,11 @@
 #include <iostream>
 #include <vector>
 #include <Windows.h>
-
 using namespace std;
-typedef long long ll;
 static ofstream fileOut, supFileOut;
 vector<char> alf = { 'a','b','c','d','e','f' };
 
-pair<char, vector<pair<char, int>>> madeNextEltMoh(vector<char>& alphabet)
+pair<char, vector<pair<char, int>>> NextComObj(vector<char>& alphabet)
 
 {
     vector<pair<char, int>> nextElt(255);
@@ -27,7 +25,7 @@ pair<char, vector<pair<char, int>>> madeNextEltMoh(vector<char>& alphabet)
     return make_pair(alphabet[0], nextElt);
 }
 pair<char, vector<pair<char, int>>> deactivateElt(pair<char, vector<pair<char, int>>>& nextElt, vector<char>& word)
-// функция создаёт множество следующих, в котором элементы, находящиеся в word исключены.
+// функция создаёт множество следующих, в котором элементы, находящиеся в word,исключены.
 {
     vector<pair<char, int>> newNextElt(255);
     int iter = 0, number = 1;
@@ -58,7 +56,7 @@ pair<char, vector<pair<char, int>>> deactivateElt(pair<char, vector<pair<char, i
 
     return make_pair(newfirstChar, newNextElt);
 }
-char takeNnextElt(pair<char, vector<pair<char, int>>>& nextElt, int n)
+char takeNextObj(pair<char, vector<pair<char, int>>>& nextElt, int n)
 {
     char c = nextElt.first;
     for (int i = 1; i < n; i++)
@@ -68,7 +66,7 @@ char takeNnextElt(pair<char, vector<pair<char, int>>>& nextElt, int n)
     return c;
 }
 
-bool takeNextMoh(pair<char, vector<pair<char, int>>>& nextElt, vector<char>& moh, int coutOfOn)
+bool takeNextObjLeks(pair<char, vector<pair<char, int>>>& nextElt, vector<char>& moh, int coutOfOn)
 // получает на вход первый элемент, множество следующих элементов. Изменяет подмножество на следующее в лексикографическом порядке того же размера.
 {
     int top = 0;
@@ -107,10 +105,10 @@ int main()
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     fileOut.open(("Otvet.txt"));
-    nextMoh = madeNextEltMoh(alf);
+    nextMoh = NextComObj(alf);
     for (int i = 1; i <= 7; i++)
         mohOfNum.push_back(i + 48);
-    numNextMoh = madeNextEltMoh(mohOfNum);
+    numNextMoh = NextComObj(mohOfNum);
     // Так как имеется лишь 3 варианта расположения
     //1) 4 1 1 1
 
@@ -122,19 +120,19 @@ int main()
         do // выбираем 4 места под 1-ю повторяющуся букву из 7
         {
             numNextMoh1 = deactivateElt(numNextMoh, c1);
-            a2 = { takeNnextElt(nextMoh1,1), takeNnextElt(nextMoh1,2), takeNnextElt(nextMoh1,3) };
+            a2 = { takeNextObj(nextMoh1,1), takeNextObj(nextMoh1,2), takeNextObj(nextMoh1,3) };
             do // выбираем 3 символа из 5
             {
                 nextMoh2 = deactivateElt(nextMoh1, a2);
-                c2 = { takeNnextElt(numNextMoh1,1) };
+                c2 = { takeNextObj(numNextMoh1,1) };
                 do // выбираем 1 местo под 2-ю повторяющуся букву
                 {
                     numNextMoh2 = deactivateElt(numNextMoh1, c2);
-                    c3 = { takeNnextElt(numNextMoh2,1) };
+                    c3 = { takeNextObj(numNextMoh2,1) };
                     do // выбираем 1 местo под 3-ю повторяющуся букву
                     {
                         numNextMoh3 = deactivateElt(numNextMoh2, c3);
-                        c4 = { takeNnextElt(numNextMoh3,1) };
+                        c4 = { takeNextObj(numNextMoh3,1) };
                         do // выбираем 1 местo под 4-ю повторяющуся букву
                         {
                             for (int i = 1; i <= 7; i++)
@@ -164,12 +162,12 @@ int main()
                                 }
                             }
                             fileOut << endl;
-                        } while (takeNextMoh(numNextMoh3, c4, 1));
-                    } while (takeNextMoh(numNextMoh2, c3, 2));
-                } while (takeNextMoh(numNextMoh1, c2, 3));
-            } while (takeNextMoh(nextMoh1, a2, 5));
-        } while (takeNextMoh(numNextMoh, c1, 7));
-    } while (takeNextMoh(nextMoh, a1, 6));
+                        } while (takeNextObjLeks(numNextMoh3, c4, 1));
+                    } while (takeNextObjLeks(numNextMoh2, c3, 2));
+                } while (takeNextObjLeks(numNextMoh1, c2, 3));
+            } while (takeNextObjLeks(nextMoh1, a2, 5));
+        } while (takeNextObjLeks(numNextMoh, c1, 7));
+    } while (takeNextObjLeks(nextMoh, a1, 6));
 
     fileOut << endl;
     //2) 3 2 1 1
@@ -182,22 +180,22 @@ int main()
         do // выбираем 3 места под 1-ю повторяющуся букву из 7
         {
             numNextMoh1 = deactivateElt(numNextMoh, c1);
-            a2 = { takeNnextElt(nextMoh1,1) };
+            a2 = { takeNextObj(nextMoh1,1) };
             do // выбираем 1 символ из 5
             {
                 nextMoh2 = deactivateElt(nextMoh1, a2);
-                a3 = { takeNnextElt(nextMoh2,1), takeNnextElt(nextMoh2,2) };
+                a3 = { takeNextObj(nextMoh2,1), takeNextObj(nextMoh2,2) };
                 do // выбираем 2 символа из 5
                 {
-                    c2 = { takeNnextElt(numNextMoh1,1),takeNnextElt(numNextMoh1,2) };
+                    c2 = { takeNextObj(numNextMoh1,1),takeNextObj(numNextMoh1,2) };
                     do // выбираем 2 местo под 2-ю повторяющуся букву
                     {
                         numNextMoh2 = deactivateElt(numNextMoh1, c2);
-                        c3 = { takeNnextElt(numNextMoh2,1) };
+                        c3 = { takeNextObj(numNextMoh2,1) };
                         do // выбираем 1 местo под 3-ю повторяющуся букву
                         {
                             numNextMoh3 = deactivateElt(numNextMoh2, c3);
-                            c4 = { takeNnextElt(numNextMoh3,1) };
+                            c4 = { takeNextObj(numNextMoh3,1) };
                             do // выбираем 1 местo под 4-ю повторяющуся букву
                             {
                                 for (int i = 1; i <= 7; i++)
@@ -227,13 +225,13 @@ int main()
                                     }
                                 }
                                 fileOut << endl;
-                            } while (takeNextMoh(numNextMoh3, c4, 1));
-                        } while (takeNextMoh(numNextMoh2, c3, 2));
-                    } while (takeNextMoh(numNextMoh1, c2, 4));
-                } while (takeNextMoh(nextMoh2, a3, 4));
-            } while (takeNextMoh(nextMoh1, a2, 5));
-        } while (takeNextMoh(numNextMoh, c1, 7));
-    } while (takeNextMoh(nextMoh, a1, 6));
+                            } while (takeNextObjLeks(numNextMoh3, c4, 1));
+                        } while (takeNextObjLeks(numNextMoh2, c3, 2));
+                    } while (takeNextObjLeks(numNextMoh1, c2, 4));
+                } while (takeNextObjLeks(nextMoh2, a3, 4));
+            } while (takeNextObjLeks(nextMoh1, a2, 5));
+        } while (takeNextObjLeks(numNextMoh, c1, 7));
+    } while (takeNextObjLeks(nextMoh, a1, 6));
 
     fileOut << endl;
     //3) 2 2 2 1
@@ -246,18 +244,18 @@ int main()
         do // выбираем 2 места под 1-ю повторяющуся букву из 7
         {
             numNextMoh1 = deactivateElt(numNextMoh, c1);
-            a2 = { takeNnextElt(nextMoh1,1) };
+            a2 = { takeNextObj(nextMoh1,1) };
             do // выбираем 1 символ из 3
             {
-                c2 = { takeNnextElt(numNextMoh1,1),takeNnextElt(numNextMoh1,2) };
+                c2 = { takeNextObj(numNextMoh1,1),takeNextObj(numNextMoh1,2) };
                 do // выбираем 2 местo под 2-ю повторяющуся букву
                 {
                     numNextMoh2 = deactivateElt(numNextMoh1, c2);
-                    c3 = { takeNnextElt(numNextMoh2,1), takeNnextElt(numNextMoh2,2) };
+                    c3 = { takeNextObj(numNextMoh2,1), takeNextObj(numNextMoh2,2) };
                     do // выбираем 2 местa под 3-ю повторяющуся букву
                     {
                         numNextMoh3 = deactivateElt(numNextMoh2, c3);
-                        c4 = { takeNnextElt(numNextMoh3,1) };
+                        c4 = { takeNextObj(numNextMoh3,1) };
                         do // выбираем 1 местo под 4-ю повторяющуся букву
                         {
                             for (int i = 1; i <= 7; i++)
@@ -287,11 +285,11 @@ int main()
                                 }
                             }
                             fileOut << endl;
-                        } while (takeNextMoh(numNextMoh3, c4, 1));
-                    } while (takeNextMoh(numNextMoh2, c3, 3));
-                } while (takeNextMoh(numNextMoh1, c2, 5));
-            } while (takeNextMoh(nextMoh1, a2, 3));
-        } while (takeNextMoh(numNextMoh, c1, 7));
-    } while (takeNextMoh(nextMoh, a1, 6));
+                        } while (takeNextObjLeks(numNextMoh3, c4, 1));
+                    } while (takeNextObjLeks(numNextMoh2, c3, 3));
+                } while (takeNextObjLeks(numNextMoh1, c2, 5));
+            } while (takeNextObjLeks(nextMoh1, a2, 3));
+        } while (takeNextObjLeks(numNextMoh, c1, 7));
+    } while (takeNextObjLeks(nextMoh, a1, 6));
 
 }
