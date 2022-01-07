@@ -1,0 +1,19 @@
+﻿  Dz1,6.cpp
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(20,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(39,18): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(51,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(144,43): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(149,48): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(154,48): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(159,48): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(207,47): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(212,52): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(217,52): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(222,52): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(267,43): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(272,48): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(277,48): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(282,48): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(101,9): warning C4101: numOfAsk: неиспользованная локальная переменная
+C:\Users\artem\source\repos\Dm\DM\Dz1,6\Dz1,6.cpp(95): warning C4715: takeNextMoh: значение возвращается не при всех путях выполнения
+  Dz1,6.vcxproj -> C:\Users\artem\source\repos\Dm\DM\Dz1,6\Debug\Dz1,6.exe
