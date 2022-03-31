@@ -14,13 +14,13 @@ namespace Dz1_4
         {
             for (int i = s.Count - 1; i > 0; i--)
                 if (s[i] != s[i - 1] + 1) return true;
-            if (s[s.Count - 1] == m - 1) return false;
+            if (s[^1] == m - 1) return false; //s.Count - 1
             return true;
         }
 
         static void NextComObj(List<int> s, int m, int k)//к-размерность сочетания
         {
-            if (s[k - 1] != (m - 1)) s[k - 1] += 1;
+            if (s[k - 1] != (m - 1)) s[k - 1]++;
             else
             {
                 int index = k - 1;
@@ -30,9 +30,8 @@ namespace Dz1_4
                 for (int i = index + 1; i < k; i++)
                     s[i] = s[i - 1] + 1;
             }
-
         }
-        public static void NextPermutation(List<string> ReArr)//perestnovka
+        public static void NextPermutation(List<string> ReArr)//перестановка
         {
             int index = ReArr.Count - 2;
             while (alf.IndexOf(ReArr[index]) > alf.IndexOf(ReArr[index + 1]))
@@ -82,7 +81,7 @@ namespace Dz1_4
                 }
         }
 
-        public static void ConnectArr(List<string> arrange, List<string> word, int m)
+        public static void ConnectPl(List<string> arrange, List<string> word, int m)
         {
             int indexAr = 0;
             for (int i = 0; i < m; i++)
@@ -197,7 +196,7 @@ namespace Dz1_4
                                     word1[i] = "";
                                 Connect(sochet, word1, j, m1);
                                 Connect(sochet1, word1, n, m1);
-                                ConnectArr(placements1, word1, m1);
+                                ConnectPl(placements1, word1, m1);
                                 Print(word1, file1, m1);
                                 while (hasNextPermutation(perest1))
                                 {
@@ -206,7 +205,7 @@ namespace Dz1_4
                                         word1[i] = "";
                                     Connect(sochet, word1, j, m1);
                                     Connect(sochet1, word1, n, m1);
-                                    ConnectArr(placements1, word1, m1);
+                                    ConnectPl(placements1, word1, m1);
                                     Print(word1, file1, m1);
                                 }
 
@@ -251,7 +250,7 @@ namespace Dz1_4
                                         Connect(sochet2, word2, j, m2);
                                         Connect(sochet21, word2, n, m2);
                                         Connect(sochet22, word2, p, m2);
-                                        ConnectArr(placements2, word2, m2);
+                                        ConnectPl(placements2, word2, m2);
                                         Print(word2, file2, m2);
                                         while (hasNextPermutation(perest2))
                                         {
@@ -263,7 +262,7 @@ namespace Dz1_4
                                             Connect(sochet2, word2, j, m2);
                                             Connect(sochet21, word2, n, m2);
                                             Connect(sochet22, word2, p, m2);
-                                            ConnectArr(placements2, word2, m2);
+                                            ConnectPl(placements2, word2, m2);
                                             Print(word2, file2, m2);
                                         }
                                     }

@@ -15,7 +15,7 @@ namespace Dz1_2
         {
             for (int i = s.Count - 1; i > 0; i--)
                 if (s[i] != s[i - 1] + 1) return true;
-            if (s[s.Count - 1] == m - 1) return false;
+            if (s[^1] == m - 1) return false;
             return true;
         }
 
